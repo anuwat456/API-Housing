@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -130,6 +131,16 @@ namespace API.Models.db
             });
 
             OnModelCreatingPartial(modelBuilder);
+        }
+
+        internal Task FindByNameAsync(string idNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Task FindByName()
+        {
+            throw new NotImplementedException();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

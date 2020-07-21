@@ -6,6 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models.db;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Data;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.Extensions.Options;
 
 namespace API.Controllers
 {
@@ -15,9 +23,14 @@ namespace API.Controllers
     {
         private readonly HousingEstateContext _context;
 
-        public UserController(HousingEstateContext context)
+        private UserManager<User> _userManager;
+        private readonly TokenApplicationSetting _tokenAppSetting;
+
+        public UserController(HousingEstateContext context, UserManager<User> userManager, IOptions<TokenApplicationSetting> tokenAppSetting)
         {
             _context = context;
+            _userManager = userManager;
+            _tokenAppSetting = tokenAppSetting.Value;
         }
 
         // GET: api/User
@@ -104,6 +117,35 @@ namespace API.Controllers
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.IdUser == id);
+        }
+
+        // TWT Authentication
+        [HttpPost]
+        [Route("Login")]
+        // POST: /api/User/Login
+        public async Task<IActionResult> Login(User model)
+        {
+            var user = await _userManager.FindByNameAsync(model.IdNumber);
+            if(user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                        new Claim("UserID", user.Id.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddMinutes(5),
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenAppSetting.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.WriteToken(securityToken);
+                return Ok(new { token });
+            }
+            else
+            {
+                return BadRequest(new { Message = "Username or password is incorrect." });
+            }
         }
     }
 }

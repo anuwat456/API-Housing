@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace API.Models.db
 {
-    public partial class User
+    public class User : IdentityUser
     {
         public int IdUser { get; set; }
         public string IdNumber { get; set; }

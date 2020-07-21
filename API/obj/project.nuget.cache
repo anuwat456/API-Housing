@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "L78/o7InkzDJSWV77qsZtGLYDkO1evCZyooLe8g/JWoWFN+ysuDTjJ12qLI73WJO7/0Q+U0BEb+5FslJS0DI7w==",
+  "dgSpecHash": "uKCbz4P3N1DzdqkvB6hu9WIvuwj09e/Gnybam7PWRbem7SyRe0pux3OnfWiL5uElGT7apmaHZtiZQDKffDnKbw==",
   "success": true,
   "projectFilePath": "D:\\Housing estate\\Housing estate\\API\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\MiTaKuYa\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.6\\microsoft.aspnetcore.authentication.jwtbearer.3.1.6.nupkg.sha512",
     "C:\\Users\\MiTaKuYa\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\MiTaKuYa\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.6\\microsoft.aspnetcore.jsonpatch.3.1.6.nupkg.sha512",
     "C:\\Users\\MiTaKuYa\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.6\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.6.nupkg.sha512",
